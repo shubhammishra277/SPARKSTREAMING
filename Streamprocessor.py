@@ -20,7 +20,7 @@ Class streamprocessing(object):
              ksteam=ssc.union(*kstreams)
              tweetdata=kstream.flatmap(lambda x: [i for i in x.split(" ") if x.startswith("#")])
              tweetdata60=tweetdata.map(lambda x: (x,1)).reduceByKeyandWindow(lambda x,y:x+y,60,10).map(lambda x,y:y,x).sortBykey(False)
-             tweetdata120=tweetdata.map(lambda x: (x,1)).reduceByKeyandWindow(lambda x,y:x+y,60,10).map(lambda x,y:y,x).sortBykey(False)
+             tweetdata120=tweetdata.map(lambda x: (x,1)).reduceByKeyandWindow(lambda x,y:x+y,120,30).map(lambda x,y:y,x).sortBykey(False)
              word60.foreachRDD(lambda rdd :rdd.collect().foreach(lambda x,y:print("%s,%s"%(y,x)) ))
              word60.foreachRDD(lambda rdd :rdd.collect().foreach(lambda x,y:print("Hastag:%s, Frequency :%s"%(y,x)) ))
      
